@@ -2,10 +2,12 @@ import socket
 import json
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-bank_host = '192.168.1.4'
+
+bank_host = socket.gethostname()
 bank_port = 1024
-market_host = '192.168.1.4'
+market_host = socket.gethostname()
 market_port = 5055
 
 inp = input("Do you want to launch a IPO")
@@ -23,8 +25,8 @@ if (inp == 'y'):
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 if (inp == 'y'):
 
-    s.sendto(inp.encode(), (bank_host, bank_port))
-    s.sendto(name.encode(), (bank_host, bank_port))
+    s2.sendto(inp.encode(), (bank_host, bank_port))
+    s2.sendto(name.encode(), (bank_host, bank_port))
 
     while True:
         print("Select from options")
@@ -36,20 +38,20 @@ if (inp == 'y'):
         option = str(option)
 
         if option == '1':
-            s.sendto(option.encode(), (bank_host, bank_port))
+            s2.sendto(option.encode(), (bank_host, bank_port))
             amt = input("How much money do you want to deposit?")
-            s.sendto(name.encode(), (bank_host, bank_port))
-            s.sendto(amt.encode(), (bank_host, bank_port))
+            s2.sendto(name.encode(), (bank_host, bank_port))
+            s2.sendto(amt.encode(), (bank_host, bank_port))
 
         elif option == '2':
-            s.sendto(option.encode(), (bank_host, bank_port))
+            s2.sendto(option.encode(), (bank_host, bank_port))
             amt = input("How much money do you want to withdraw?")
-            s.sendto(name.encode(), (bank_host, bank_port))
-            s.sendto(amt.encode(), (bank_host, bank_port))
+            s2.sendto(name.encode(), (bank_host, bank_port))
+            s2.sendto(amt.encode(), (bank_host, bank_port))
 
         elif option == '3':
-            s.sendto(option.encode(), (bank_host, bank_port))
-            s.sendto(name.encode(), (bank_host, bank_port))
+            s2.sendto(option.encode(), (bank_host, bank_port))
+            s2.sendto(name.encode(), (bank_host, bank_port))
             amt, addr = s.recvfrom(1024)
             amt = amt.decode('utf')
             print("You have " + amt + "in yout account")

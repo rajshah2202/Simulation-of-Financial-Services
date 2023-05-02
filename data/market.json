@@ -1,9 +1,9 @@
 {
     "companies": [
         {
-            "name": "Infy",
+            "name": "tata",
             "quantity": 10000,
-            "price": 200
+            "price": 20
         }
     ]
 }

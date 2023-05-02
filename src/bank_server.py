@@ -3,7 +3,7 @@ import json
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 host = socket.gethostname()
-port = 5050
+port = 1024
 
 input_file = open('../data/bank.json')
 f = input_file.read()
@@ -61,7 +61,7 @@ if (inp == 'y'):
             for i in bank['investors']:
                 if i['name'] == name:
                     if i['amount'] > int(amt):
-                        i['amount'] = i['amount'] - float(amt)
+                        i['amount'] = i['amount'] - int(amt)
             print(i['amount'])
             data = json.dumps(bank)
             out = open('../data/bank.json', 'w')
@@ -90,12 +90,12 @@ if (inp == 'y'):
             print(name)
             for i in bank['investors']:
                 if i['name'] == name:
-                    if i['amount'] > float(amt):
-                        i['amount'] = i['amount'] - float(amt)
+                    if i['amount'] > int(amt):
+                        i['amount'] = i['amount'] - int(amt)
 
             for i in bank['investors']:
                 if i['name'] == stock:
-                    i['amount'] = i['amount'] + float(amt)
+                    i['amount'] = i['amount'] + int(amt)
 
             data = json.dumps(bank)
             out = open('../data/bank.json', 'w')
@@ -103,17 +103,26 @@ if (inp == 'y'):
             out.close()
 
         elif option == '5':
-            sell_amt = s.recvfrom(1024)
-            sell_amt = int(sell_amt.encode())
-            name = s.recvfrom(1024)
-            name = name.decode()
-
+            sell_amt, addr = s.recvfrom(1024)
+            amt = sell_amt.decode('utf-8')
+            print(amt)
+            name, addr = s.recvfrom(1024)
+            name = name.decode('utf-8')
+            print(name)
+            stock, addr = s.recvfrom(1024)
+            stock = stock.decode('utf-8')
+            print(stock)
             for i in bank['investors']:
                 if i['name'] == name:
-                    if i['amount'] > float(amt):
-                        i['amount'] = i['amount'] + float(amt)
+                    if i['amount'] > int(amt):
+                        i['amount'] = i['amount'] + int(amt)
 
             for i in bank['investors']:
                 if i['name'] == stock:
-                    if i['amount'] > float(amt):
-                        i['amount'] = i['amount'] - float(amt)
+                    if i['amount'] > int(amt):
+                        i['amount'] = i['amount'] - int(amt)
+
+            data = json.dumps(bank)
+            out = open('../data/bank.json', 'w')
+            out.write(data)
+            out.close()

@@ -1,8 +1,12 @@
 {
     "investors": [
         {
+            "name": "tata",
+            "amount": 99990
+        },
+        {
             "name": "Raj",
-            "amount": 0
+            "amount": 95010
         }
     ]
 }

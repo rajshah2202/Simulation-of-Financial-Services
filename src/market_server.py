@@ -72,7 +72,7 @@ while True:
             for i in market['companies']:
                 if i['name'] == stock:
                     i['quantity'] -= quantity
-                    i['price'] = i['price']+(i['price'] * 0.01)
+                    i['price'] = i['price'] + 1
 
             data = json.dumps(market)
             print(data)
@@ -127,44 +127,61 @@ while True:
 
         price = str(price)
         price = price.encode()
+        print(price)
         s.sendto(price, addr)
 
-        input_file = open('../data/personal_stock.json')
-        f = input_file.read()
-        market = json.loads(f)
+        input = open('../data/personal_stock.json')
+        f1 = input.read()
+        market1 = json.loads(f1)
 
         name, addr = s.recvfrom(1024)
         name = name.decode('utf-8')
-
+        print(name)
         avaliable_quantity = 0
 
-        for i in market['people']:
+        for i in market1['people']:
             if i['name'] == name:
-                for j in range(0, len(i['stock'])):
-                    if i['stock'][j] == stock:
+                for j in range(0, len(i['stocks'])):
+                    if i['stocks'][j] == stock:
                         avaliable_quantity = i['quantity'][j]
 
         avaliable_quantity = str(avaliable_quantity)
         avaliable_quantity = avaliable_quantity.encode()
         s.sendto(avaliable_quantity, addr)
+        print(avaliable_quantity)
 
-        data = s.recvfrom(1024)
+        data, addr = s.recvfrom(1024)
         data = data.decode('utf-8')
-
+        print(data)
         if data == 'OK':
-            input_file = open('../data/personal_stock.json')
-            f = input_file.read()
-            market = json.loads(f)
+            input_file2 = open('../data/personal_stock.json')
+            f2 = input_file2.read()
+            market2 = json.loads(f2)
 
-            quantity = s.recvfrom(1024)
+            quantity, addr = s.recvfrom(1024)
+            quantity = int(quantity.decode('utf-8'))
 
-            for i in market['people']:
+            for i in market2['people']:
                 if i['name'] == name:
-                    for j in range(0, len(i['stock'])):
-                        if i['stock'][j] == stock:
+                    for j in range(0, len(i['stocks'])):
+                        if i['stocks'][j] == stock:
                             i['quantity'][j] -= quantity
 
-            data = json.dumps(market)
+            data = json.dumps(market2)
             out = open('../data/personal_stock.json', 'w')
+            out.write(data)
+            out.close()
+
+            input_file5 = open('../data/market.json')
+            f5 = input_file5.read()
+            market5 = json.loads(f5)
+
+            for i in market5['companies']:
+                if i['name'] == stock:
+                    i['price'] = i['price'] - 1
+                    i['quantity'] = i['quantity'] + quantity
+
+            data = json.dumps(market5)
+            out = open('../data/market.json', 'w')
             out.write(data)
             out.close()

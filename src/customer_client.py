@@ -3,10 +3,10 @@ import json
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-bank_host = '192.168.1.4'
+bank_host = socket.gethostname()
 bank_port = 1024
 
-market_host = '192.168.1.4'
+market_host = socket.gethostname()
 market_port = 5055
 
 inp = input("Do you want to create Bank Account")
@@ -44,7 +44,7 @@ if (inp == 'y'):
             s.sendto(name.encode(), (bank_host, bank_port))
             amt, addr = s.recvfrom(1024)
             amt = amt.decode('utf')
-            print("You have " + amt + "in yout account")
+            print("You have " + amt + " in your account")
 
         elif option == '4':
             s2.sendto(option.encode(), (market_host, market_port))
@@ -58,7 +58,7 @@ if (inp == 'y'):
             if int(quantity) > int(avaliable_quantity):
                 print("Not enough quantity")
                 continue
-            price = float(price.decode('utf-8'))
+            price = int(price.decode('utf-8'))
             buy_amt = price * int(quantity)
             inp = '3'
             inp = inp.encode()
@@ -89,9 +89,7 @@ if (inp == 'y'):
             quantity = input("What is the quantity?")
             s2.sendto(stock.encode(), (market_host, market_port))
             price, addr = s2.recvfrom(1024)
-            avaliable_quantity, addr = s2.recvfrom(1024)
             s2.sendto(name.encode(), (market_host, market_port))
-
             avaliable_quantity, addr = s2.recvfrom(1024)
 
             if int(quantity) > int(avaliable_quantity):
@@ -105,11 +103,19 @@ if (inp == 'y'):
             data = data.encode()
 
             s2.sendto(data, (market_host, market_port))
+            quantity = str(quantity)
+            qunat = int(quantity)
+            quantity = quantity.encode()
             s2.sendto(quantity, (market_host, market_port))
 
             option = '5'
             s.sendto(option.encode(), (bank_host, bank_port))
-            sell_amt = quantity * price
-            sell_amt = str(sell_amt).encode()
+            price = price.decode()
+            price = int(price)
+            sell_amt = qunat * price
+            print(sell_amt)
+            sell_amt = str(sell_amt)
+            sell_amt = sell_amt.encode()
             s.sendto(sell_amt, (bank_host, bank_port))
             s.sendto(name.encode(), (bank_host, bank_port))
+            s.sendto(stock.encode(), (bank_host, bank_port))

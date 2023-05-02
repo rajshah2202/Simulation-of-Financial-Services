@@ -3,12 +3,10 @@
         {
             "name": "Raj",
             "stocks": [
-                "Infy",
-                "Tata Motor"
+                "tata"
             ],
             "quantity": [
-                100,
-                300
+                0
             ]
         }
     ]
