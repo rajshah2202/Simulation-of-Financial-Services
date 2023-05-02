@@ -1,0 +1,53 @@
+{
+    "people": [
+        {
+            "name": "Raj",
+            "stocks": [
+                "Infy",
+                "Tata Motor"
+            ],
+            "quantity": [
+                100,
+                300
+            ]
+        },
+        {
+            "name": "Advait",
+            "stocks": [
+                "Infy",
+                "Tata Motor"
+            ],
+            "quantity": [
+                100,
+                200
+            ]
+        },
+        {
+            "name": "Debas",
+            "stocks": [
+                "Infy"
+            ],
+            "quantity": [
+                10000
+            ]
+        },
+        {
+            "name": "Siddhant",
+            "stocks": [
+                "Infy"
+            ],
+            "quantity": [
+                10000
+            ]
+        },
+        {
+            "name": "Yash",
+            "stocks": [
+                "Infy"
+            ],
+            "quantity": [
+                10
+            ]
+        }
+    ]
+}

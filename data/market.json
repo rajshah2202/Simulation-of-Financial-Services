@@ -1,0 +1,14 @@
+{
+    "companies": [
+        {
+            "name": "Infy",
+            "quantity": 9990,
+            "price": 200
+        },
+        {
+            "name": "REl",
+            "quantity": 100,
+            "price": 50
+        }
+    ]
+}
