@@ -3,9 +3,9 @@ import json
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-bank_host = socket.gethostname()
-bank_port = 5050
-market_host = socket.gethostname()
+bank_host = '192.168.1.4'
+bank_port = 1024
+market_host = '192.168.1.4'
 market_port = 5055
 
 inp = input("Do you want to launch a IPO")

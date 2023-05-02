@@ -2,13 +2,8 @@
     "companies": [
         {
             "name": "Infy",
-            "quantity": 9990,
+            "quantity": 10000,
             "price": 200
-        },
-        {
-            "name": "REl",
-            "quantity": 100,
-            "price": 50
         }
     ]
 }

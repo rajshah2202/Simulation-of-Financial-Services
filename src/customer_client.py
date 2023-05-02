@@ -3,10 +3,10 @@ import json
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-bank_host = socket.gethostname()
-bank_port = 5050
+bank_host = '192.168.1.4'
+bank_port = 1024
 
-market_host = socket.gethostname()
+market_host = '192.168.1.4'
 market_port = 5055
 
 inp = input("Do you want to create Bank Account")
@@ -28,7 +28,7 @@ if (inp == 'y'):
         option = str(option)
 
         if option == '1':
-            s.sendto(option.encode(), (bank_host, bank_port)) 
+            s.sendto(option.encode(), (bank_host, bank_port))
             amt = input("How much money do you want to deposit?")
             s.sendto(name.encode(), (bank_host, bank_port))
             s.sendto(amt.encode(), (bank_host, bank_port))
@@ -58,7 +58,7 @@ if (inp == 'y'):
             if int(quantity) > int(avaliable_quantity):
                 print("Not enough quantity")
                 continue
-            price = int(price.decode('utf-8'))
+            price = float(price.decode('utf-8'))
             buy_amt = price * int(quantity)
             inp = '3'
             inp = inp.encode()
@@ -113,5 +113,3 @@ if (inp == 'y'):
             sell_amt = str(sell_amt).encode()
             s.sendto(sell_amt, (bank_host, bank_port))
             s.sendto(name.encode(), (bank_host, bank_port))
-
-

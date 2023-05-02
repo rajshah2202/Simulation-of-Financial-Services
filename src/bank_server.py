@@ -61,7 +61,7 @@ if (inp == 'y'):
             for i in bank['investors']:
                 if i['name'] == name:
                     if i['amount'] > int(amt):
-                        i['amount'] = i['amount'] - int(amt)
+                        i['amount'] = i['amount'] - float(amt)
             print(i['amount'])
             data = json.dumps(bank)
             out = open('../data/bank.json', 'w')
@@ -90,12 +90,12 @@ if (inp == 'y'):
             print(name)
             for i in bank['investors']:
                 if i['name'] == name:
-                    if i['amount'] > int(amt):
-                        i['amount'] = i['amount'] - int(amt)
+                    if i['amount'] > float(amt):
+                        i['amount'] = i['amount'] - float(amt)
 
             for i in bank['investors']:
                 if i['name'] == stock:
-                    i['amount'] = i['amount'] + int(amt)
+                    i['amount'] = i['amount'] + float(amt)
 
             data = json.dumps(bank)
             out = open('../data/bank.json', 'w')
@@ -110,10 +110,10 @@ if (inp == 'y'):
 
             for i in bank['investors']:
                 if i['name'] == name:
-                    if i['amount'] > int(amt):
-                        i['amount'] = i['amount'] + int(amt)
+                    if i['amount'] > float(amt):
+                        i['amount'] = i['amount'] + float(amt)
 
             for i in bank['investors']:
                 if i['name'] == stock:
-                    if i['amount'] > int(amt):
-                        i['amount'] = i['amount'] - int(amt)
+                    if i['amount'] > float(amt):
+                        i['amount'] = i['amount'] - float(amt)

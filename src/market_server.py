@@ -125,6 +125,8 @@ while True:
             if i['name'] == stock:
                 price = i['price']
 
+        price = str(price)
+        price = price.encode()
         s.sendto(price, addr)
 
         input_file = open('../data/personal_stock.json')
@@ -142,6 +144,8 @@ while True:
                     if i['stock'][j] == stock:
                         avaliable_quantity = i['quantity'][j]
 
+        avaliable_quantity = str(avaliable_quantity)
+        avaliable_quantity = avaliable_quantity.encode()
         s.sendto(avaliable_quantity, addr)
 
         data = s.recvfrom(1024)
@@ -164,5 +168,3 @@ while True:
             out = open('../data/personal_stock.json', 'w')
             out.write(data)
             out.close()
-
-                        
